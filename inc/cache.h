@@ -148,6 +148,7 @@ private:
   std::deque<tag_lookup_type> internal_PQ{};
   std::deque<tag_lookup_type> inflight_tag_check{};
   std::deque<tag_lookup_type> translation_stash{};
+  std::deque<request_type> pending_writebacks{};
 
 public:
   std::vector<channel_type*> upper_levels;
@@ -209,7 +210,17 @@ public:
   [[deprecated("Use get_set_index() instead.")]] [[nodiscard]] uint64_t get_set(uint64_t address) const;
   [[deprecated("This function should not be used to access the blocks directly.")]] [[nodiscard]] uint64_t get_way(uint64_t address, uint64_t set) const;
 
+  bool is_flushing() const { return !pending_writebacks.empty(); }
+
+  bool is_idle() const {
+    bool wq_empty = true; for(auto o : get_wq_occupancy()) if(o > 0) wq_empty = false;
+    bool rq_empty = true; for(auto o : get_rq_occupancy()) if(o > 0) rq_empty = false;
+    bool pq_empty = true; for(auto o : get_pq_occupancy()) if(o > 0) pq_empty = false;
+    return wq_empty && rq_empty && pq_empty && (get_mshr_occupancy() == 0) && inflight_writes.empty() && pending_writebacks.empty() && internal_PQ.empty() && inflight_tag_check.empty() && translation_stash.empty();
+  }
+
   long invalidate_entry(champsim::address inval_addr);
+  void flush_section(long set_begin, long set_end, long way_begin, long way_end);
   bool prefetch_line(champsim::address pf_addr, bool fill_this_level, uint32_t prefetch_metadata);
 
   [[deprecated]] bool prefetch_line(uint64_t pf_addr, bool fill_this_level, uint32_t prefetch_metadata);

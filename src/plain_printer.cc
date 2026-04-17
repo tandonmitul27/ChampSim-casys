@@ -197,6 +197,28 @@ std::vector<std::string> champsim::plain_printer::format(champsim::phase_stats& 
     std::move(std::begin(sublines), std::end(sublines), std::back_inserter(lines));
   }
 
+  // Calculate and print flush time breakdown
+  uint64_t l1d_max = 0, l2c_max = 0, llc_flush = 0;
+  for (const auto& stat : stats.roi_cache_stats) {
+    if (stat.name.find("L1D") != std::string::npos) {
+      l1d_max = std::max(l1d_max, stat.flush_stall_cycles);
+    } else if (stat.name.find("L2C") != std::string::npos) {
+      l2c_max = std::max(l2c_max, stat.flush_stall_cycles);
+    } else if (stat.name.find("LLC") != std::string::npos) {
+      llc_flush = stat.flush_stall_cycles;
+    }
+  }
+
+  // Print flush metrics breakdown
+  bool has_flush = (l1d_max > 0) || (l2c_max > 0) || (llc_flush > 0);
+  if (has_flush || stats.total_flush_time > 0) {
+    lines.emplace_back("");
+    lines.push_back(fmt::format("L1D MAX FLUSH STALL CYCLES: {}", l1d_max));
+    lines.push_back(fmt::format("L2C MAX FLUSH STALL CYCLES: {}", l2c_max));
+    lines.push_back(fmt::format("LLC FLUSH STALL CYCLES: {}", llc_flush));
+    lines.push_back(fmt::format("TOTAL WRITEBACK FLUSH TIME: {} cycles", stats.total_flush_time));
+  }
+
   lines.emplace_back("");
   lines.emplace_back("DRAM Statistics");
   for (const auto& stat : stats.roi_dram_stats) {

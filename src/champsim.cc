@@ -260,6 +260,19 @@ phase_stats do_phase(const phase_info& phase, environment& env, std::vector<trac
   std::transform(std::begin(caches), std::end(caches), std::back_inserter(stats.sim_cache_stats), [](const CACHE& cache) { return cache.sim_stats; });
   std::transform(std::begin(caches), std::end(caches), std::back_inserter(stats.roi_cache_stats), [](const CACHE& cache) { return cache.roi_stats; });
 
+  // Calculate total flush time: max(L1D) + max(L2C) + LLC
+  uint64_t l1d_max_flush = 0, l2c_max_flush = 0, llc_flush = 0;
+  for (const auto& cache_stat : stats.roi_cache_stats) {
+    if (cache_stat.name.find("L1D") != std::string::npos) {
+      l1d_max_flush = std::max(l1d_max_flush, cache_stat.flush_stall_cycles);
+    } else if (cache_stat.name.find("L2C") != std::string::npos) {
+      l2c_max_flush = std::max(l2c_max_flush, cache_stat.flush_stall_cycles);
+    } else if (cache_stat.name.find("LLC") != std::string::npos) {
+      llc_flush = cache_stat.flush_stall_cycles;
+    }
+  }
+  stats.total_flush_time = l1d_max_flush + l2c_max_flush + llc_flush;
+
   auto dram = env.dram_view();
   std::transform(std::begin(dram.channels), std::end(dram.channels), std::back_inserter(stats.sim_dram_stats),
                  [](const DRAM_CHANNEL& chan) { return chan.sim_stats; });
