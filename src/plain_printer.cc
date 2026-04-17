@@ -124,6 +124,10 @@ std::vector<std::string> champsim::plain_printer::format(CACHE::stats_type stats
         fmt::format("cpu{}->{} AVERAGE MISS LATENCY: {} cycles", cpu, stats.name, ::print_ratio(stats.total_miss_latency_cycles, total_downstream_demands)));
   }
 
+  if (stats.flush_stall_cycles > 0) {
+    lines.push_back(fmt::format("{} FLUSH STALL CYCLES: {}", stats.name, stats.flush_stall_cycles));
+  }
+
   return lines;
 }
 

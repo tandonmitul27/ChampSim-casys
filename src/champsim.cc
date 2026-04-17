@@ -37,7 +37,7 @@ std::chrono::seconds elapsed_time() { return std::chrono::duration_cast<std::chr
 
 namespace champsim
 {
-long do_cycle(environment& env, std::vector<tracereader>& traces, std::vector<std::size_t> trace_index, champsim::chrono::clock& global_clock)
+long do_cycle(environment& env, std::vector<tracereader>& traces, std::vector<std::size_t> trace_index, champsim::chrono::clock& global_clock, bool freeze_cpus)
 {
   auto operables = env.operable_view();
   std::sort(std::begin(operables), std::end(operables),
@@ -46,14 +46,28 @@ long do_cycle(environment& env, std::vector<tracereader>& traces, std::vector<st
   // Operate
   long progress{0};
   for (champsim::operable& op : operables) {
+    bool is_cpu = false;
+    for (O3_CPU& cpu : env.cpu_view()) {
+      if (&op == &cpu) {
+        is_cpu = true;
+        break;
+      }
+    }
+    if (freeze_cpus && is_cpu) {
+      // Keep cpu updated without operation
+      op.current_time = global_clock.now();
+      continue;
+    }
     progress += op.operate_on(global_clock);
   }
 
   // Read from trace
-  for (O3_CPU& cpu : env.cpu_view()) {
-    auto& trace = traces.at(trace_index.at(cpu.cpu));
-    for (auto pkt_count = cpu.IN_QUEUE_SIZE - static_cast<long>(std::size(cpu.input_queue)); !trace.eof() && pkt_count > 0; --pkt_count) {
-      cpu.input_queue.push_back(trace());
+  if (!freeze_cpus) {
+    for (O3_CPU& cpu : env.cpu_view()) {
+      auto& trace = traces.at(trace_index.at(cpu.cpu));
+      for (auto pkt_count = cpu.IN_QUEUE_SIZE - static_cast<long>(std::size(cpu.input_queue)); !trace.eof() && pkt_count > 0; --pkt_count) {
+        cpu.input_queue.push_back(trace());
+      }
     }
   }
 
@@ -81,6 +95,8 @@ phase_stats do_phase(const phase_info& phase, environment& env, std::vector<trac
   std::vector<double> livelock_threshold{0.01, 0.02, 0.05};
   std::vector<uint64_t> livelock_instr(std::size(env.cpu_view()), 0);
 
+  int global_flush_stage = 0;
+
   // Perform phase
   int stalled_cycle{0};
   std::vector<bool> phase_complete(std::size(env.cpu_view()), false);
@@ -88,7 +104,7 @@ phase_stats do_phase(const phase_info& phase, environment& env, std::vector<trac
     auto next_phase_complete = phase_complete;
     global_clock.tick(time_quantum);
 
-    auto progress = do_cycle(env, traces, trace_index, global_clock);
+    auto progress = do_cycle(env, traces, trace_index, global_clock, (global_flush_stage > 0 && global_flush_stage < 4));
 
     if (progress == 0) {
       ++stalled_cycle;
@@ -126,15 +142,88 @@ phase_stats do_phase(const phase_info& phase, environment& env, std::vector<trac
       abort();
     }
 
-    // If any trace reaches EOF, terminate all phases
-    if (std::any_of(std::begin(traces), std::end(traces), [](const auto& tr) { return tr.eof(); })) {
+    // If any trace reaches EOF and we're not flushing, terminate all phases
+    if (std::any_of(std::begin(traces), std::end(traces), [](const auto& tr) { return tr.eof(); }) && global_flush_stage == 0) {
       std::fill(std::begin(next_phase_complete), std::end(next_phase_complete), true);
+    }
+
+    bool all_cpus_reached_limit = true;
+    for (O3_CPU& cpu : env.cpu_view()) {
+      if (cpu.sim_instr() < length) {
+        all_cpus_reached_limit = false;
+      }
+    }
+
+    if (all_cpus_reached_limit && !is_warmup) {
+      if (global_flush_stage == 0) {
+        fmt::print("Flushing L1 caches...\n");
+        for (CACHE& cache : env.cache_view()) {
+          if (cache.NAME.find("L1") != std::string::npos || cache.NAME.find("TLB") != std::string::npos) {
+            cache.flush_section(0, cache.NUM_SET, 0, cache.NUM_WAY);
+          }
+        }
+        global_flush_stage = 1;
+      }
+      
+      bool l1_idle = true;
+      for (CACHE& cache : env.cache_view()) {
+        if (cache.NAME.find("L1") != std::string::npos || cache.NAME.find("TLB") != std::string::npos) {
+          if (!cache.is_idle()) l1_idle = false;
+        }
+      }
+      
+      bool l2_idle = true;
+      for (CACHE& cache : env.cache_view()) {
+        if (cache.NAME.find("L2C") != std::string::npos) {
+          if (!cache.is_idle()) l2_idle = false;
+        }
+      }
+
+      bool llc_idle = true;
+      for (CACHE& cache : env.cache_view()) {
+        if (cache.NAME.find("LLC") != std::string::npos) {
+          if (!cache.is_idle()) llc_idle = false;
+        }
+      }
+      
+      bool dram_idle = true;
+      for (const auto& chan : env.dram_view().channels) {
+        auto wq_occ = std::count_if(chan.WQ.begin(), chan.WQ.end(), [](const auto& req) { return req.has_value(); });
+        auto rq_occ = std::count_if(chan.RQ.begin(), chan.RQ.end(), [](const auto& req) { return req.has_value(); });
+        if (wq_occ > 0 || rq_occ > 0) dram_idle = false;
+      }
+
+      if (global_flush_stage == 1 && l1_idle && l2_idle) {
+        fmt::print("Flushing L2 caches...\n");
+        for (CACHE& cache : env.cache_view()) {
+          if (cache.NAME.find("L2C") != std::string::npos) {
+            cache.flush_section(0, cache.NUM_SET, 0, cache.NUM_WAY);
+          }
+        }
+        global_flush_stage = 2;
+      } else if (global_flush_stage == 2 && l2_idle && llc_idle) {
+        fmt::print("Flushing LLC...\n");
+        for (CACHE& cache : env.cache_view()) {
+          if (cache.NAME.find("LLC") != std::string::npos) {
+            cache.flush_section(0, cache.NUM_SET, 0, cache.NUM_WAY);
+          }
+        }
+        global_flush_stage = 3;
+      } else if (global_flush_stage == 3 && llc_idle && dram_idle) {
+        global_flush_stage = 4;
+        fmt::print("Rigorous flush pipeline fully complete!\n");
+      }
+    }
+
+    bool any_flush_pending = false;
+    if (global_flush_stage > 0 && global_flush_stage < 4) {
+      any_flush_pending = true;
     }
 
     // Check for phase finish
     for (O3_CPU& cpu : env.cpu_view()) {
       // Phase complete
-      next_phase_complete[cpu.cpu] = next_phase_complete[cpu.cpu] || (cpu.sim_instr() >= length);
+      next_phase_complete[cpu.cpu] = next_phase_complete[cpu.cpu] || (cpu.sim_instr() >= length && !any_flush_pending);
     }
 
     for (O3_CPU& cpu : env.cpu_view()) {

@@ -416,6 +416,21 @@ long CACHE::operate()
 {
   long progress{0};
 
+  if (lower_level != nullptr) {
+    // Drain pending writebacks from flush operations
+    while (!pending_writebacks.empty()) {
+      if (lower_level->add_wq(pending_writebacks.front())) {
+        pending_writebacks.pop_front();
+        progress++;
+      } else {
+        // WQ full, count as stall cycle
+        sim_stats.flush_stall_cycles++;
+        roi_stats.flush_stall_cycles++;
+        break;
+      }
+    }
+  }
+
   auto is_ready = [time = current_time](const auto& entry) {
     return entry.event_cycle <= time;
   };
@@ -571,6 +586,35 @@ long CACHE::invalidate_entry(champsim::address inval_addr)
   }
 
   return std::distance(begin, inv_way);
+}
+
+void CACHE::flush_section(long set_begin, long set_end, long way_begin, long way_end) {
+  int flushed_count = 0;
+  for (long s = set_begin; s < set_end; s++) {
+    for (long w = way_begin; w < way_end; w++) {
+      auto& way = block[s * NUM_WAY + w];
+      if (way.valid && way.dirty) {
+        request_type writeback_packet;
+        writeback_packet.cpu = 0; // Flushed blocks don't have originating CPU; using 0 as default
+        writeback_packet.address = way.address;
+        writeback_packet.v_address = way.v_address;
+        writeback_packet.data = way.data;
+        writeback_packet.instr_id = 0;
+        writeback_packet.ip = champsim::address{0};
+        writeback_packet.type = access_type::WRITE;
+        writeback_packet.response_requested = false;
+
+        pending_writebacks.push_back(writeback_packet);
+        flushed_count++;
+
+        way.valid = false;
+        way.dirty = false;
+      }
+    }
+  }
+  if (flushed_count > 0) {
+    fmt::print("{}: Flushed {} dirty blocks.\n", NAME, flushed_count);
+  }
 }
 
 bool CACHE::prefetch_line(champsim::address pf_addr, bool fill_this_level, uint32_t prefetch_metadata)
