@@ -1,0 +1,98 @@
+[VMEM] WARNING: physical memory size is smaller than virtual memory size.
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+Warmup Instructions: 2000000
+Simulation Instructions: 10000000
+Number of CPUs: 1
+Page size: 4096
+
+Off-chip DRAM Size: 16 GiB Channels: 1 Width: 64-bit Data Rate: 3205 MT/s
+Warmup finished CPU 0 instructions: 2000002 cycles: 607932 cumulative IPC: 3.29 (Simulation time: 00 hr 00 min 08 sec)
+Warmup complete CPU 0 instructions: 2000002 cycles: 607932 cumulative IPC: 3.29 (Simulation time: 00 hr 00 min 08 sec)
+Heartbeat CPU 0 instructions: 10000002 cycles: 5274418 heartbeat IPC: 1.896 cumulative IPC: 1.714 (Simulation time: 00 hr 00 min 56 sec)
+Simulation finished CPU 0 instructions: 10000003 cycles: 5849845 cumulative IPC: 1.709 (Simulation time: 00 hr 01 min 08 sec)
+Simulation complete CPU 0 instructions: 10000003 cycles: 5849845 cumulative IPC: 1.709 (Simulation time: 00 hr 01 min 08 sec)
+
+ChampSim completed all CPUs
+
+=== Simulation ===
+CPU 0 runs /home/tandonmitul27/workspace/SPEC17/607.cactuBSSN_s-3477B.champsimtrace.xz
+
+Region of Interest Statistics
+
+CPU 0 cumulative IPC: 1.709 instructions: 10000003 cycles: 5849845
+CPU 0 Branch Prediction Accuracy: 91.83% MPKI: 0.7239 Average ROB Occupancy at Mispredict: 333.6
+Branch type MPKI
+BRANCH_DIRECT_JUMP: 0
+BRANCH_INDIRECT: 0
+BRANCH_CONDITIONAL: 0.3625
+BRANCH_DIRECT_CALL: 0
+BRANCH_INDIRECT_CALL: 0
+BRANCH_RETURN: 0.3614
+
+cpu0->cpu0_STLB TOTAL        ACCESS:     376492 HIT:     376071 MISS:        421 MSHR_MERGE:          0
+cpu0->cpu0_STLB LOAD         ACCESS:     376492 HIT:     376071 MISS:        421 MSHR_MERGE:          0
+cpu0->cpu0_STLB RFO          ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_STLB PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_STLB WRITE        ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_STLB TRANSLATION  ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_STLB PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->cpu0_STLB AVERAGE MISS LATENCY: 802.9 cycles
+cpu0->cpu0_L2C TOTAL        ACCESS:    1090834 HIT:    1035428 MISS:      55406 MSHR_MERGE:          0
+cpu0->cpu0_L2C LOAD         ACCESS:     960272 HIT:     912844 MISS:      47428 MSHR_MERGE:          0
+cpu0->cpu0_L2C RFO          ACCESS:      61174 HIT:      54244 MISS:       6930 MSHR_MERGE:          0
+cpu0->cpu0_L2C PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L2C WRITE        ACCESS:      68322 HIT:      68310 MISS:         12 MSHR_MERGE:          0
+cpu0->cpu0_L2C TRANSLATION  ACCESS:       1066 HIT:         30 MISS:       1036 MSHR_MERGE:          0
+cpu0->cpu0_L2C PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->cpu0_L2C AVERAGE MISS LATENCY: 120.5 cycles
+cpu0->cpu0_L1I TOTAL        ACCESS:    2201050 HIT:    1628743 MISS:     572307 MSHR_MERGE:     284890
+cpu0->cpu0_L1I LOAD         ACCESS:    2201050 HIT:    1628743 MISS:     572307 MSHR_MERGE:     284890
+cpu0->cpu0_L1I RFO          ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L1I PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L1I WRITE        ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L1I TRANSLATION  ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L1I PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->cpu0_L1I AVERAGE MISS LATENCY: 7.124 cycles
+cpu0->cpu0_L1D TOTAL        ACCESS:    3803109 HIT:    3022556 MISS:     780553 MSHR_MERGE:      45440
+cpu0->cpu0_L1D LOAD         ACCESS:    3011033 HIT:    2299663 MISS:     711370 MSHR_MERGE:      38500
+cpu0->cpu0_L1D RFO          ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L1D PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_L1D WRITE        ACCESS:     791010 HIT:     722893 MISS:      68117 MSHR_MERGE:       6940
+cpu0->cpu0_L1D TRANSLATION  ACCESS:       1066 HIT:          0 MISS:       1066 MSHR_MERGE:          0
+cpu0->cpu0_L1D PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->cpu0_L1D AVERAGE MISS LATENCY: 18.44 cycles
+cpu0->cpu0_ITLB TOTAL        ACCESS:    1723196 HIT:    1723196 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_ITLB LOAD         ACCESS:    1723196 HIT:    1723196 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_ITLB RFO          ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_ITLB PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_ITLB WRITE        ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_ITLB TRANSLATION  ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_ITLB PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->cpu0_ITLB AVERAGE MISS LATENCY: - cycles
+cpu0->cpu0_DTLB TOTAL        ACCESS:    3636977 HIT:    3215926 MISS:     421051 MSHR_MERGE:      44559
+cpu0->cpu0_DTLB LOAD         ACCESS:    3636977 HIT:    3215926 MISS:     421051 MSHR_MERGE:      44559
+cpu0->cpu0_DTLB RFO          ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_DTLB PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_DTLB WRITE        ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_DTLB TRANSLATION  ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->cpu0_DTLB PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->cpu0_DTLB AVERAGE MISS LATENCY: 5.94 cycles
+cpu0->LLC TOTAL        ACCESS:      62218 HIT:      35429 MISS:      26789 MSHR_MERGE:          0
+cpu0->LLC LOAD         ACCESS:      47428 HIT:      27161 MISS:      20267 MSHR_MERGE:          0
+cpu0->LLC RFO          ACCESS:       6867 HIT:       1016 MISS:       5851 MSHR_MERGE:          0
+cpu0->LLC PREFETCH     ACCESS:          0 HIT:          0 MISS:          0 MSHR_MERGE:          0
+cpu0->LLC WRITE        ACCESS:       6887 HIT:       6874 MISS:         13 MSHR_MERGE:          0
+cpu0->LLC TRANSLATION  ACCESS:       1036 HIT:        378 MISS:        658 MSHR_MERGE:          0
+cpu0->LLC PREFETCH REQUESTED:          0 ISSUED:          0 USEFUL:          0 USELESS:          0
+cpu0->LLC AVERAGE MISS LATENCY: 217.2 cycles
+
+DRAM Statistics
+
+Channel 0 RQ ROW_BUFFER_HIT:         15
+  ROW_BUFFER_MISS:      26761
+  AVG DBUS CONGESTED CYCLE: 6.646
+Channel 0 WQ ROW_BUFFER_HIT:        128
+  ROW_BUFFER_MISS:       1305
+  FULL:          0
+Channel 0 REFRESHES ISSUED:        488
