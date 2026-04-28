@@ -1,0 +1,212 @@
+{
+  "metadata": {
+    "description": "ChampSim configuration approximating Intel Xeon Silver 4314: 16 physical cores, Ice Lake-SP (Sunny Cove), SMT disabled, one socket-local LLC domain.",
+    "created_for": "cache-to-scratchpad switching latency evaluation — decent lower-tier server baseline",
+    "observed_on": "2026-04-18",
+    "modeled_cpu": "Intel Xeon Silver 4314 (Ice Lake-SP, Sunny Cove, 2021)",
+    "modeling_notes": [
+      "Sunny Cove microarchitecture: 5-wide decode (vs 6-wide Golden Cove on Sapphire Rapids), ROB=352 (vs 512), tighter dispatch buffers.",
+      "Frequency set to 3400 MHz (all-core turbo). Base is 2.4 GHz; all-core turbo ~3.0-3.4 GHz on this SKU.",
+      "L2 is 1.25 MiB per core: 2048 sets x 10 ways x 64 B. Sets are power-of-2; ways=10 is non-standard but ChampSim supports it.",
+      "LLC is 24 MiB: 32768 sets x 12 ways x 64 B. Actual Xeon Silver 4314 L3 is 24 MiB.",
+      "DDR4-3200 with 6 memory channels per Intel ARK. JEDEC CL22 timings used.",
+      "This is a budget server part: lower frequency, narrower front-end, DDR4 instead of DDR5 — all key downgrades vs the Gold 6548Y+.",
+      "ChampSim does not model hardware coherence; use for cache/scratchpad switching-cost approximation only."
+    ]
+  },
+
+  "executable_name": "xeon_silver_spmA",
+  "block_size": 64,
+  "page_size": 4096,
+  "heartbeat_frequency": 10000000,
+  "num_cores": 16,
+
+  "_comment_microarch": "Sunny Cove (Ice Lake-SP): 5-wide decode, ROB=352, scheduler=160, smaller dispatch buffers than Golden Cove.",
+  "frequency": 3400,
+  "ifetch_buffer_size": 48,
+  "decode_buffer_size": 32,
+  "dispatch_buffer_size": 48,
+  "register_file_size": 192,
+  "rob_size": 352,
+  "lq_size": 128,
+  "sq_size": 72,
+  "fetch_width": 5,
+  "decode_width": 5,
+  "dispatch_width": 5,
+  "execute_width": 5,
+  "lq_width": 2,
+  "sq_width": 2,
+  "retire_width": 6,
+  "mispredict_penalty": 1,
+  "scheduler_size": 160,
+  "decode_latency": 1,
+  "dispatch_latency": 1,
+  "schedule_latency": 0,
+  "execute_latency": 0,
+  "branch_predictor": "hashed_perceptron",
+  "btb": "basic_btb",
+
+  "DIB": {
+    "_comment": "Ice Lake DSB (Decoded Stream Buffer): 1536 uop capacity. Approximated as 32-set 8-way with 8-entry windows.",
+    "window_size": 8,
+    "sets": 32,
+    "ways": 8
+  },
+
+  "L1I": {
+    "_comment": "Sunny Cove L1I: 32 KiB, 8-way. Same size as Golden Cove.",
+    "sets": 64,
+    "ways": 8,
+    "rq_size": 64,
+    "wq_size": 64,
+    "pq_size": 32,
+    "mshr_size": 8,
+    "latency": 4,
+    "max_tag_check": 2,
+    "max_fill": 2,
+    "prefetch_as_load": false,
+    "virtual_prefetch": true,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "next_line",
+    "replacement": "lru"
+  },
+
+  "L1D": {
+    "_comment": "Sunny Cove L1D: 48 KiB, 12-way. Same size as Golden Cove. Latency 5 cycles.",
+    "sets": 1,
+    "ways": 1,
+    "rq_size": 64,
+    "wq_size": 64,
+    "pq_size": 16,
+    "mshr_size": 16,
+    "latency": 1,
+    "max_tag_check": 2,
+    "max_fill": 2,
+    "prefetch_as_load": false,
+    "virtual_prefetch": false,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "no",
+    "replacement": "lru",
+    "bypass": true
+  },
+
+  "L2C": {
+    "_comment": "Sunny Cove L2: 1.25 MiB per core. 2048 sets x 10 ways x 64 B = 1.25 MiB. Latency ~14 cycles (smaller than Golden Cove's 2 MiB L2 at 15 cycles).",
+    "sets": 1,
+    "ways": 1,
+    "rq_size": 64,
+    "wq_size": 64,
+    "pq_size": 32,
+    "mshr_size": 64,
+    "latency": 1,
+    "max_tag_check": 2,
+    "max_fill": 2,
+    "prefetch_as_load": false,
+    "virtual_prefetch": false,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "no",
+    "replacement": "srrip",
+    "bypass": true
+  },
+
+  "ITLB": {
+    "sets": 16,
+    "ways": 4,
+    "rq_size": 16,
+    "wq_size": 16,
+    "pq_size": 0,
+    "mshr_size": 8,
+    "latency": 1,
+    "max_tag_check": 2,
+    "max_fill": 2,
+    "prefetch_as_load": false
+  },
+
+  "DTLB": {
+    "sets": 16,
+    "ways": 4,
+    "rq_size": 16,
+    "wq_size": 16,
+    "pq_size": 0,
+    "mshr_size": 8,
+    "latency": 1,
+    "max_tag_check": 2,
+    "max_fill": 2,
+    "prefetch_as_load": false
+  },
+
+  "STLB": {
+    "sets": 128,
+    "ways": 12,
+    "rq_size": 32,
+    "wq_size": 32,
+    "pq_size": 0,
+    "mshr_size": 16,
+    "latency": 8,
+    "max_tag_check": 1,
+    "max_fill": 1,
+    "prefetch_as_load": false
+  },
+
+  "PTW": {
+    "pscl5_set": 1,
+    "pscl5_way": 2,
+    "pscl4_set": 1,
+    "pscl4_way": 4,
+    "pscl3_set": 2,
+    "pscl3_way": 4,
+    "pscl2_set": 4,
+    "pscl2_way": 8,
+    "rq_size": 16,
+    "mshr_size": 5,
+    "max_read": 2,
+    "max_write": 2
+  },
+
+  "LLC": {
+    "_comment": "24 MiB: 32768 sets x 12 ways x 64 B. Matches Xeon Silver 4314 actual L3. Latency 40 cycles — slightly lower than Gold 6416H's 42 because the Silver die is a single-tile Ice Lake with no cross-tile hop.",
+    "frequency": 3400,
+    "sets": 32768,
+    "ways": 3,
+    "rq_size": 256,
+    "wq_size": 256,
+    "pq_size": 128,
+    "mshr_size": 512,
+    "latency": 20,
+    "max_tag_check": 16,
+    "max_fill": 8,
+    "prefetch_as_load": false,
+    "virtual_prefetch": false,
+    "prefetch_activate": "LOAD,PREFETCH",
+    "prefetcher": "no",
+    "replacement": "srrip",
+    "spm": true
+  },
+
+  "physical_memory": {
+    "_comment": "6-channel DDR4-3200, JEDEC CL22 standard timings. DDR4 vs DDR5 is a key downgrade: lower bandwidth and higher tCAS cycles at lower absolute frequency.",
+    "data_rate": 3200,
+    "channels": 4,
+    "ranks": 1,
+    "bankgroups": 4,
+    "banks": 4,
+    "bank_rows": 65536,
+    "bank_columns": 1024,
+    "channel_width": 8,
+    "wq_size": 128,
+    "rq_size": 128,
+    "tCAS": 22,
+    "tRCD": 22,
+    "tRP": 22,
+    "tRAS": 52,
+    "refresh_period": 64,
+    "refreshes_per_period": 8192
+  },
+
+  "virtual_memory": {
+    "pte_page_size": 4096,
+    "num_levels": 5,
+    "minor_fault_penalty": 200,
+    "randomization": 1
+  }
+}

@@ -40,6 +40,8 @@ CACHE::CACHE(CACHE&& other)
       cpu(other.cpu), NAME(std::move(other.NAME)), NUM_SET(other.NUM_SET), NUM_WAY(other.NUM_WAY), MSHR_SIZE(other.MSHR_SIZE), PQ_SIZE(other.PQ_SIZE),
       HIT_LATENCY(other.HIT_LATENCY), FILL_LATENCY(other.FILL_LATENCY), OFFSET_BITS(other.OFFSET_BITS), block(std::move(other.block)), MAX_TAG(other.MAX_TAG),
       MAX_FILL(other.MAX_FILL), prefetch_as_load(other.prefetch_as_load), match_offset_bits(other.match_offset_bits), virtual_prefetch(other.virtual_prefetch),
+      is_bypass(other.is_bypass), is_spm(other.is_spm), spm_loaded_lines(std::move(other.spm_loaded_lines)),
+      spm_hits(other.spm_hits), spm_cold_misses(other.spm_cold_misses), dram_direct_count(other.dram_direct_count),
       pref_activate_mask(std::move(other.pref_activate_mask)),
 
       sim_stats(std::move(other.sim_stats)), roi_stats(std::move(other.roi_stats)),
@@ -78,6 +80,12 @@ auto CACHE::operator=(CACHE&& other) -> CACHE&
   this->prefetch_as_load = other.prefetch_as_load;
   this->match_offset_bits = other.match_offset_bits;
   this->virtual_prefetch = other.virtual_prefetch;
+  this->is_bypass = other.is_bypass;
+  this->is_spm = other.is_spm;
+  this->spm_loaded_lines = std::move(other.spm_loaded_lines);
+  this->spm_hits = other.spm_hits;
+  this->spm_cold_misses = other.spm_cold_misses;
+  this->dram_direct_count = other.dram_direct_count;
   this->pref_activate_mask = std::move(other.pref_activate_mask);
 
   this->sim_stats = std::move(other.sim_stats);
@@ -94,13 +102,15 @@ auto CACHE::operator=(CACHE&& other) -> CACHE&
 
 CACHE::tag_lookup_type::tag_lookup_type(const request_type& req, bool local_pref, bool skip)
     : address(req.address), v_address(req.v_address), data(req.data), ip(req.ip), instr_id(req.instr_id), pf_metadata(req.pf_metadata), cpu(req.cpu),
-      type(req.type), prefetch_from_this(local_pref), skip_fill(skip), is_translated(req.is_translated), instr_depend_on_me(req.instr_depend_on_me)
+      type(req.type), prefetch_from_this(local_pref), skip_fill(skip), is_translated(req.is_translated), mem_type(req.mem_type),
+      instr_depend_on_me(req.instr_depend_on_me)
 {
 }
 
 CACHE::mshr_type::mshr_type(const tag_lookup_type& req, champsim::chrono::clock::time_point _time_enqueued)
     : address(req.address), v_address(req.v_address), ip(req.ip), instr_id(req.instr_id), cpu(req.cpu), type(req.type),
-      prefetch_from_this(req.prefetch_from_this), time_enqueued(_time_enqueued), instr_depend_on_me(req.instr_depend_on_me), to_return(req.to_return)
+      prefetch_from_this(req.prefetch_from_this), time_enqueued(_time_enqueued), mem_type(req.mem_type),
+      instr_depend_on_me(req.instr_depend_on_me), to_return(req.to_return)
 {
 }
 
@@ -170,6 +180,18 @@ bool CACHE::handle_fill(const mshr_type& fill_mshr)
 {
   cpu = fill_mshr.cpu;
 
+  // SPM-tagged fills in regular caches: relay response without installing
+  if (!is_spm && fill_mshr.mem_type == 1) {
+    response_type response{fill_mshr.address, fill_mshr.v_address, fill_mshr.data_promise->data,
+                           fill_mshr.data_promise->pf_metadata, fill_mshr.instr_depend_on_me};
+    for (auto* ret : fill_mshr.to_return)
+      ret->push_back(response);
+    if (fill_mshr.type != access_type::PREFETCH)
+      sim_stats.total_miss_latency_cycles += (current_time - (fill_mshr.time_enqueued + clock_period)) / clock_period;
+    sim_stats.mshr_return.increment(std::pair{fill_mshr.type, fill_mshr.cpu});
+    return true;
+  }
+
   // find victim
   auto [set_begin, set_end] = get_set_span(fill_mshr.address);
   auto way = std::find_if_not(set_begin, set_end, [](auto x) { return x.valid; });
@@ -231,7 +253,15 @@ bool CACHE::handle_fill(const mshr_type& fill_mshr)
       ++sim_stats.pf_fill;
     }
 
-    *way = fill_block(fill_mshr, metadata_thru);
+    if (!is_bypass && (!is_spm || fill_mshr.mem_type == 0)) {
+      *way = fill_block(fill_mshr, metadata_thru);
+    }
+  }
+
+  // For SPM-managed fills, record the line as permanently resident
+  if (is_spm && fill_mshr.mem_type == 1) {
+    uint64_t line_key = fill_mshr.address.slice_upper(OFFSET_BITS).to<uint64_t>();
+    spm_loaded_lines.insert(line_key);
   }
 
   // COLLECT STATS
@@ -251,7 +281,29 @@ bool CACHE::try_hit(const tag_lookup_type& handle_pkt)
 {
   cpu = handle_pkt.cpu;
 
-  // access cache
+  // Bypass mode: always miss, never serve from local block array
+  if (is_bypass)
+    return false;
+
+  // SPM mode
+  if (is_spm) {
+    if (handle_pkt.mem_type == 1) {
+      // SPM section: always hit at SPM latency, never goes to DRAM
+      uint64_t line_key = handle_pkt.address.slice_upper(OFFSET_BITS).to<uint64_t>();
+      if (spm_loaded_lines.insert(line_key).second)
+        ++spm_cold_misses;
+      else
+        ++spm_hits;
+      sim_stats.hits.increment(std::pair{handle_pkt.type, handle_pkt.cpu});
+      response_type response{handle_pkt.address, handle_pkt.v_address, champsim::address{0}, handle_pkt.pf_metadata, handle_pkt.instr_depend_on_me};
+      for (auto* ret : handle_pkt.to_return)
+        ret->push_back(response);
+      return true;
+    }
+    // mem_type==0: cache section — fall through to normal set-associative lookup
+  }
+
+  // Normal set-associative cache lookup
   auto [set_begin, set_end] = get_set_span(handle_pkt.address);
   auto way = std::find_if(set_begin, set_end, [matcher = matches_address(handle_pkt.address)](const auto& x) { return x.valid && matcher(x); });
   const auto hit = (way != set_end);
@@ -310,6 +362,7 @@ auto CACHE::mshr_and_forward_packet(const tag_lookup_type& handle_pkt) -> std::p
   fwd_pkt.data = handle_pkt.data;
   fwd_pkt.instr_id = handle_pkt.instr_id;
   fwd_pkt.ip = handle_pkt.ip;
+  fwd_pkt.mem_type = handle_pkt.mem_type;
 
   fwd_pkt.instr_depend_on_me = handle_pkt.instr_depend_on_me;
   fwd_pkt.response_requested = (!handle_pkt.prefetch_from_this || !handle_pkt.skip_fill);
@@ -865,6 +918,12 @@ void CACHE::begin_phase()
 void CACHE::end_phase(unsigned finished_cpu)
 {
   finished_cpu = finished_cpu;
+
+  if (is_spm) {
+    fmt::print("[{}] SPM stats: hits={} first_accesses={} dram_direct={} loaded_lines={}\n",
+               NAME, spm_hits, spm_cold_misses, dram_direct_count, spm_loaded_lines.size());
+  }
+
   roi_stats.total_miss_latency_cycles = sim_stats.total_miss_latency_cycles;
 
   roi_stats.hits = sim_stats.hits;
