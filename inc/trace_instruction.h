@@ -46,6 +46,11 @@ struct input_instr {
 
   unsigned long long destination_memory[NUM_INSTR_DESTINATIONS]; // output memory
   unsigned long long source_memory[NUM_INSTR_SOURCES];           // input memory
+
+  // SPM tag: 0 = DRAM-direct, 1 = SPM-managed (pre-loaded, always hit after first access)
+  unsigned char destination_mem_type[NUM_INSTR_DESTINATIONS];
+  unsigned char source_mem_type[NUM_INSTR_SOURCES];
+  unsigned char _pad[2]; // pad to 72 bytes
 };
 
 struct cloudsuite_instr {

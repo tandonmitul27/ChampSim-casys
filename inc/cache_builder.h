@@ -57,6 +57,8 @@ struct cache_builder_base {
   bool m_pref_load{};
   bool m_wq_full_addr{};
   bool m_va_pref{};
+  bool m_bypass{false};
+  bool m_is_spm{false};
 
   std::vector<access_type> m_pref_act_mask{access_type::LOAD, access_type::PREFETCH};
   std::vector<champsim::channel*> m_uls{};
@@ -211,6 +213,19 @@ public:
    * Specify that prefetchers should operate in the physical address space.
    */
   self_type& reset_virtual_prefetch();
+
+  /**
+   * Bypass this cache level: every lookup misses and blocks are never installed.
+   * Use for L1/L2 when they should be transparent pass-throughs to the SPM.
+   */
+  self_type& set_bypass();
+
+  /**
+   * Configure this cache as a Scratchpad Memory (SPM).
+   * SPM-tagged lines (mem_type==1) are served after first-load DRAM fill; subsequent
+   * accesses always hit at HIT_LATENCY.  DRAM-direct lines (mem_type==0) bypass.
+   */
+  self_type& set_spm();
 
   /**
    * Specify the ``access_type`` values that should activate the prefetcher.
@@ -482,6 +497,20 @@ template <typename P, typename R>
 auto champsim::cache_builder<P, R>::reset_virtual_prefetch() -> self_type&
 {
   m_va_pref = false;
+  return *this;
+}
+
+template <typename P, typename R>
+auto champsim::cache_builder<P, R>::set_bypass() -> self_type&
+{
+  m_bypass = true;
+  return *this;
+}
+
+template <typename P, typename R>
+auto champsim::cache_builder<P, R>::set_spm() -> self_type&
+{
+  m_is_spm = true;
   return *this;
 }
 

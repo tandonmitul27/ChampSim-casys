@@ -125,6 +125,9 @@ struct ooo_model_instr : champsim::program_ordered<ooo_model_instr> {
   std::vector<champsim::address> destination_memory = {};
   std::vector<champsim::address> source_memory = {};
 
+  std::vector<uint8_t> destination_mem_type = {};
+  std::vector<uint8_t> source_mem_type = {};
+
   // these are indices of instructions in the ROB that depend on me
   std::vector<std::reference_wrapper<ooo_model_instr>> registers_instrs_depend_on_me;
 
@@ -135,11 +138,21 @@ private:
     std::remove_copy(std::begin(instr.destination_registers), std::end(instr.destination_registers), std::back_inserter(this->destination_registers), 0);
     std::remove_copy(std::begin(instr.source_registers), std::end(instr.source_registers), std::back_inserter(this->source_registers), 0);
 
-    auto dmem_end = std::remove(std::begin(instr.destination_memory), std::end(instr.destination_memory), uint64_t{0});
-    std::transform(std::begin(instr.destination_memory), dmem_end, std::back_inserter(this->destination_memory), [](auto x) { return champsim::address{x}; });
+    for (std::size_t i = 0; i < std::size(instr.destination_memory); ++i) {
+      if (instr.destination_memory[i] != 0) {
+        this->destination_memory.push_back(champsim::address{instr.destination_memory[i]});
+        if constexpr (std::is_same_v<std::decay_t<T>, input_instr>)
+          this->destination_mem_type.push_back(instr.destination_mem_type[i]);
+      }
+    }
 
-    auto smem_end = std::remove(std::begin(instr.source_memory), std::end(instr.source_memory), uint64_t{0});
-    std::transform(std::begin(instr.source_memory), smem_end, std::back_inserter(this->source_memory), [](auto x) { return champsim::address{x}; });
+    for (std::size_t i = 0; i < std::size(instr.source_memory); ++i) {
+      if (instr.source_memory[i] != 0) {
+        this->source_memory.push_back(champsim::address{instr.source_memory[i]});
+        if constexpr (std::is_same_v<std::decay_t<T>, input_instr>)
+          this->source_mem_type.push_back(instr.source_mem_type[i]);
+      }
+    }
 
     bool writes_sp = std::count(std::begin(destination_registers), std::end(destination_registers), champsim::REG_STACK_POINTER);
     bool writes_ip = std::count(std::begin(destination_registers), std::end(destination_registers), champsim::REG_INSTRUCTION_POINTER);
