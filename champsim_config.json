@@ -57,7 +57,7 @@
 
   "L1D": {
     "sets": 64,
-    "ways": 12,
+    "ways": 8,
     "rq_size": 64,
     "wq_size": 64,
     "pq_size": 8,
@@ -68,11 +68,12 @@
     "prefetch_as_load": false,
     "virtual_prefetch": false,
     "prefetch_activate": "LOAD,PREFETCH",
-    "prefetcher": "no"
+    "prefetcher": "no",
+    "bypass_mem_type_0": true
   },
 
   "L2C": {
-    "sets": 1024,
+    "sets": 512,
     "ways": 8,
     "rq_size": 32,
     "wq_size": 32,
@@ -84,7 +85,8 @@
     "prefetch_as_load": false,
     "virtual_prefetch": false,
     "prefetch_activate": "LOAD,PREFETCH",
-    "prefetcher": "no"
+    "prefetcher": "no",
+    "bypass_mem_type_0": true
   },
 
   "ITLB": {
@@ -144,7 +146,7 @@
   "LLC": {
     "frequency": 4000,
     "sets": 2048,
-    "ways": 16,
+    "ways": 3,
     "rq_size": 32,
     "wq_size": 32,
     "pq_size": 32,
@@ -156,7 +158,8 @@
     "virtual_prefetch": false,
     "prefetch_activate": "LOAD,PREFETCH",
     "prefetcher": "no",
-    "replacement": "lru"
+    "replacement": "lru",
+    "spm": true
   },
 
   "physical_memory": {

@@ -1,0 +1,564 @@
+[VMEM] WARNING: physical memory size is smaller than virtual memory size.
+
+*** ChampSim Multicore Out-of-Order Simulator ***
+Warmup Instructions: 10000000
+Simulation Instructions: 50000000
+Number of CPUs: 32
+Page size: 4096
+
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Initialize SIGNATURE TABLE
+ST_SET: 1
+ST_WAY: 256
+ST_TAG_BIT: 16
+
+Initialize PATTERN TABLE
+PT_SET: 512
+PT_WAY: 4
+SIG_DELTA_BIT: 7
+C_SIG_BIT: 4
+C_DELTA_BIT: 4
+
+Initialize PREFETCH FILTER
+FILTER_SET: 1024
+Off-chip DRAM Size: 32 GiB Channels: 4 Width: 64-bit Data Rate: 3205 MT/s
+Heartbeat CPU 17 instructions: 10000001 cycles: 3626421 heartbeat IPC: 2.758 cumulative IPC: 2.758 (Simulation time: 01 hr 11 min 09 sec)
+[LLC] SPM stats: hits=0 first_accesses=5256810 dram_direct=0 loaded_lines=5256810
+Warmup finished CPU 17 instructions: 10000001 cycles: 3626421 cumulative IPC: 2.758 (Simulation time: 01 hr 11 min 09 sec)
+Heartbeat CPU 16 instructions: 10000001 cycles: 3627319 heartbeat IPC: 2.757 cumulative IPC: 2.757 (Simulation time: 01 hr 11 min 10 sec)
+[LLC] SPM stats: hits=0 first_accesses=5258120 dram_direct=0 loaded_lines=5258120
+Warmup finished CPU 16 instructions: 10000001 cycles: 3627319 cumulative IPC: 2.757 (Simulation time: 01 hr 11 min 10 sec)
+Heartbeat CPU 18 instructions: 10000002 cycles: 3629676 heartbeat IPC: 2.755 cumulative IPC: 2.755 (Simulation time: 01 hr 11 min 12 sec)
+[LLC] SPM stats: hits=0 first_accesses=5261473 dram_direct=0 loaded_lines=5261473
+Warmup finished CPU 18 instructions: 10000002 cycles: 3629676 cumulative IPC: 2.755 (Simulation time: 01 hr 11 min 12 sec)
+Heartbeat CPU 20 instructions: 10000004 cycles: 3630878 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263148 dram_direct=0 loaded_lines=5263148
+Warmup finished CPU 20 instructions: 10000004 cycles: 3630878 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 22 instructions: 10000001 cycles: 3630888 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263165 dram_direct=0 loaded_lines=5263165
+Warmup finished CPU 22 instructions: 10000001 cycles: 3630888 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 30 instructions: 10000005 cycles: 3630903 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263187 dram_direct=0 loaded_lines=5263187
+Warmup finished CPU 30 instructions: 10000005 cycles: 3630903 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 31 instructions: 10000006 cycles: 3630908 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263196 dram_direct=0 loaded_lines=5263196
+Warmup finished CPU 31 instructions: 10000006 cycles: 3630908 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 21 instructions: 10000005 cycles: 3630928 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263223 dram_direct=0 loaded_lines=5263223
+Warmup finished CPU 21 instructions: 10000005 cycles: 3630928 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 24 instructions: 10000001 cycles: 3630929 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263223 dram_direct=0 loaded_lines=5263223
+Warmup finished CPU 24 instructions: 10000001 cycles: 3630929 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 25 instructions: 10000005 cycles: 3630934 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263235 dram_direct=0 loaded_lines=5263235
+Warmup finished CPU 25 instructions: 10000005 cycles: 3630934 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 23 instructions: 10000005 cycles: 3630970 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263279 dram_direct=0 loaded_lines=5263279
+Warmup finished CPU 23 instructions: 10000005 cycles: 3630970 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 26 instructions: 10000007 cycles: 3631014 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263352 dram_direct=0 loaded_lines=5263352
+Warmup finished CPU 26 instructions: 10000007 cycles: 3631014 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 27 instructions: 10000001 cycles: 3631040 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263388 dram_direct=0 loaded_lines=5263388
+Warmup finished CPU 27 instructions: 10000001 cycles: 3631040 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 28 instructions: 10000001 cycles: 3631051 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263403 dram_direct=0 loaded_lines=5263403
+Warmup finished CPU 28 instructions: 10000001 cycles: 3631051 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 29 instructions: 10000007 cycles: 3631094 heartbeat IPC: 2.754 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5263469 dram_direct=0 loaded_lines=5263469
+Warmup finished CPU 29 instructions: 10000007 cycles: 3631094 cumulative IPC: 2.754 (Simulation time: 01 hr 11 min 14 sec)
+Heartbeat CPU 19 instructions: 10000001 cycles: 3634181 heartbeat IPC: 2.752 cumulative IPC: 2.752 (Simulation time: 01 hr 11 min 17 sec)
+[LLC] SPM stats: hits=0 first_accesses=5267687 dram_direct=0 loaded_lines=5267687
+Warmup finished CPU 19 instructions: 10000001 cycles: 3634181 cumulative IPC: 2.752 (Simulation time: 01 hr 11 min 17 sec)
+Heartbeat CPU 0 instructions: 10000003 cycles: 3242972 heartbeat IPC: 3.084 cumulative IPC: 3.084 (Simulation time: 01 hr 16 min 43 sec)
+[LLC] SPM stats: hits=0 first_accesses=5695726 dram_direct=0 loaded_lines=5695726
+Warmup finished CPU 0 instructions: 10000003 cycles: 3242972 cumulative IPC: 3.084 (Simulation time: 01 hr 16 min 43 sec)
+Heartbeat CPU 9 instructions: 10000002 cycles: 3246040 heartbeat IPC: 3.081 cumulative IPC: 3.081 (Simulation time: 01 hr 16 min 47 sec)
+[LLC] SPM stats: hits=0 first_accesses=5701400 dram_direct=0 loaded_lines=5701400
+Warmup finished CPU 9 instructions: 10000002 cycles: 3246040 cumulative IPC: 3.081 (Simulation time: 01 hr 16 min 47 sec)
+Heartbeat CPU 15 instructions: 10000005 cycles: 3247898 heartbeat IPC: 3.079 cumulative IPC: 3.079 (Simulation time: 01 hr 16 min 50 sec)
+[LLC] SPM stats: hits=0 first_accesses=5704839 dram_direct=0 loaded_lines=5704839
+Warmup finished CPU 15 instructions: 10000005 cycles: 3247898 cumulative IPC: 3.079 (Simulation time: 01 hr 16 min 50 sec)
+Heartbeat CPU 10 instructions: 10000005 cycles: 3248511 heartbeat IPC: 3.078 cumulative IPC: 3.078 (Simulation time: 01 hr 16 min 50 sec)
+[LLC] SPM stats: hits=0 first_accesses=5705972 dram_direct=0 loaded_lines=5705972
+Warmup finished CPU 10 instructions: 10000005 cycles: 3248511 cumulative IPC: 3.078 (Simulation time: 01 hr 16 min 50 sec)
+Heartbeat CPU 11 instructions: 10000005 cycles: 3248558 heartbeat IPC: 3.078 cumulative IPC: 3.078 (Simulation time: 01 hr 16 min 50 sec)
+[LLC] SPM stats: hits=0 first_accesses=5706048 dram_direct=0 loaded_lines=5706048
+Warmup finished CPU 11 instructions: 10000005 cycles: 3248558 cumulative IPC: 3.078 (Simulation time: 01 hr 16 min 50 sec)
+Heartbeat CPU 1 instructions: 10000003 cycles: 3249624 heartbeat IPC: 3.077 cumulative IPC: 3.077 (Simulation time: 01 hr 16 min 52 sec)
+[LLC] SPM stats: hits=0 first_accesses=5708015 dram_direct=0 loaded_lines=5708015
+Warmup finished CPU 1 instructions: 10000003 cycles: 3249624 cumulative IPC: 3.077 (Simulation time: 01 hr 16 min 52 sec)
+Heartbeat CPU 13 instructions: 10000005 cycles: 3250437 heartbeat IPC: 3.077 cumulative IPC: 3.077 (Simulation time: 01 hr 16 min 53 sec)
+[LLC] SPM stats: hits=0 first_accesses=5709535 dram_direct=0 loaded_lines=5709535
+Warmup finished CPU 13 instructions: 10000005 cycles: 3250437 cumulative IPC: 3.077 (Simulation time: 01 hr 16 min 53 sec)
+Heartbeat CPU 14 instructions: 10000001 cycles: 3250498 heartbeat IPC: 3.076 cumulative IPC: 3.076 (Simulation time: 01 hr 16 min 53 sec)
+[LLC] SPM stats: hits=0 first_accesses=5709641 dram_direct=0 loaded_lines=5709641
+Warmup finished CPU 14 instructions: 10000001 cycles: 3250498 cumulative IPC: 3.076 (Simulation time: 01 hr 16 min 53 sec)
+Heartbeat CPU 12 instructions: 10000002 cycles: 3251260 heartbeat IPC: 3.076 cumulative IPC: 3.076 (Simulation time: 01 hr 16 min 54 sec)
+[LLC] SPM stats: hits=0 first_accesses=5711098 dram_direct=0 loaded_lines=5711098
+Warmup finished CPU 12 instructions: 10000002 cycles: 3251260 cumulative IPC: 3.076 (Simulation time: 01 hr 16 min 54 sec)
+Heartbeat CPU 8 instructions: 10000004 cycles: 3254071 heartbeat IPC: 3.073 cumulative IPC: 3.073 (Simulation time: 01 hr 16 min 58 sec)
+[LLC] SPM stats: hits=0 first_accesses=5716370 dram_direct=0 loaded_lines=5716370
+Warmup finished CPU 8 instructions: 10000004 cycles: 3254071 cumulative IPC: 3.073 (Simulation time: 01 hr 16 min 58 sec)
+Heartbeat CPU 2 instructions: 10000003 cycles: 3261687 heartbeat IPC: 3.066 cumulative IPC: 3.066 (Simulation time: 01 hr 17 min 08 sec)
+[LLC] SPM stats: hits=0 first_accesses=5730447 dram_direct=0 loaded_lines=5730447
+Warmup finished CPU 2 instructions: 10000003 cycles: 3261687 cumulative IPC: 3.066 (Simulation time: 01 hr 17 min 08 sec)
+Heartbeat CPU 3 instructions: 10000005 cycles: 3264439 heartbeat IPC: 3.063 cumulative IPC: 3.063 (Simulation time: 01 hr 17 min 12 sec)
+[LLC] SPM stats: hits=0 first_accesses=5735559 dram_direct=0 loaded_lines=5735559
+Warmup finished CPU 3 instructions: 10000005 cycles: 3264439 cumulative IPC: 3.063 (Simulation time: 01 hr 17 min 12 sec)
+Heartbeat CPU 7 instructions: 10000004 cycles: 3265704 heartbeat IPC: 3.062 cumulative IPC: 3.062 (Simulation time: 01 hr 17 min 14 sec)
+[LLC] SPM stats: hits=0 first_accesses=5737907 dram_direct=0 loaded_lines=5737907
+Warmup finished CPU 7 instructions: 10000004 cycles: 3265704 cumulative IPC: 3.062 (Simulation time: 01 hr 17 min 14 sec)
+Heartbeat CPU 4 instructions: 10000005 cycles: 3269117 heartbeat IPC: 3.059 cumulative IPC: 3.059 (Simulation time: 01 hr 17 min 18 sec)
+[LLC] SPM stats: hits=0 first_accesses=5743874 dram_direct=0 loaded_lines=5743874
+Warmup finished CPU 4 instructions: 10000005 cycles: 3269117 cumulative IPC: 3.059 (Simulation time: 01 hr 17 min 18 sec)
+Heartbeat CPU 6 instructions: 10000002 cycles: 3272226 heartbeat IPC: 3.056 cumulative IPC: 3.056 (Simulation time: 01 hr 17 min 23 sec)
+[LLC] SPM stats: hits=0 first_accesses=5749295 dram_direct=0 loaded_lines=5749295
+Warmup finished CPU 6 instructions: 10000002 cycles: 3272226 cumulative IPC: 3.056 (Simulation time: 01 hr 17 min 23 sec)
+Heartbeat CPU 5 instructions: 10000005 cycles: 3273021 heartbeat IPC: 3.055 cumulative IPC: 3.055 (Simulation time: 01 hr 17 min 24 sec)
+[LLC] SPM stats: hits=0 first_accesses=5750781 dram_direct=0 loaded_lines=5750781
+Warmup finished CPU 5 instructions: 10000005 cycles: 3273021 cumulative IPC: 3.055 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 9 instructions: 10084628 cycles: 3273021 cumulative IPC: 3.081 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 8 instructions: 10059248 cycles: 3273021 cumulative IPC: 3.073 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 7 instructions: 10022326 cycles: 3273021 cumulative IPC: 3.062 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 6 instructions: 10001398 cycles: 3273021 cumulative IPC: 3.056 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 5 instructions: 10000005 cycles: 3273021 cumulative IPC: 3.055 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 4 instructions: 10011236 cycles: 3273021 cumulative IPC: 3.059 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 31 instructions: 10909905 cycles: 3959951 cumulative IPC: 2.755 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 30 instructions: 10909905 cycles: 3959951 cumulative IPC: 2.755 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 3 instructions: 10025720 cycles: 3273021 cumulative IPC: 3.063 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 29 instructions: 10909905 cycles: 3959951 cumulative IPC: 2.755 (Simulation time: 01 hr 17 min 24 sec)
+Warmup complete CPU 28 instructions
